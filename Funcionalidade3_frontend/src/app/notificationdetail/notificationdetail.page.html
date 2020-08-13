@@ -1,0 +1,74 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false" color="tertiary"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      {{notificationdetailheader}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="ionicform" (ngSubmit)="submitForm()">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="stacked">Título <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input formControlName="titulo" type="text" value="{{titulo}}"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Texto <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input formControlName="text" type="text" value="{{text}}"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label>Turma</ion-label>
+        <ion-select placeholder={{turma}} formControlName="turma" interface="popover" value="{{turma}}">
+          <!--ion-select-option *ngFor="let t of turmas" value="{{t}}">{{t}}</ion-select-option-->
+          <ion-select-option>TPSI23ER</ion-select-option>
+          <ion-select-option>TPSI7HAS</ion-select-option>
+          <ion-select-option>TPSIK9P2</ion-select-option>
+          <ion-select-option>TPSIXX22</ion-select-option>
+          <ion-select-option>TPSID0F4</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Data e Hora</ion-label>
+        <ion-datetime 
+        formControlName="date_time" 
+        display-format="DD-MM-YYYY HH:mm"  
+        display-timezone="GMT" 
+        placeholder="Data"
+        value="{{datatime}}"></ion-datetime>
+      </ion-item>
+    </ion-list>
+
+    <ng-template *ngIf="agendada;then showBlock; else notShowBlock"></ng-template>
+      
+      <ng-template #showBlock>
+        <ion-item>
+          <ion-label position="stacked">Agendada</ion-label>
+          <ion-icon name="calendar-outline"></ion-icon>
+        </ion-item>
+      </ng-template>
+
+      <ng-template #notShowBlock>
+        <ion-item>
+          <ion-label position="stacked">Enviada</ion-label>
+          <ion-icon name="checkmark-outline"></ion-icon>
+        </ion-item>
+     </ng-template>
+
+    <div class="ion-padding">
+      <ion-button type="submit" class="ion-no-margin">Salvar</ion-button>
+    </div>
+  </form>
+  <div class="ion-padding">
+    <ion-button class="ion-no-margin" (click)="deleteNotification()">Deletar</ion-button>
+  </div>
+  <div class="ion-padding">
+    <ion-button class="ion-no-margin" (click)="voltar()">Voltar</ion-button>
+  </div>
+</ion-content>
